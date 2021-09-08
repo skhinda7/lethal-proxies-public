@@ -31,7 +31,7 @@ client.on('ready', () => {
     })
 });
 
-client.on('messageCreate', message => {
+client.on('messageCreate', message => { //Displays Pricing
     if(message.content === prefix + 'pricing') {
         pricing.price(message);
     }
