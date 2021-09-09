@@ -64,6 +64,7 @@ function purchase(message, args) {
             .then(() => page.type('#quantity', args[1]))
         await console.log('Changing GB Quantity...')
         await message.channel.send('Changing Bandwidth Quantity')
+        await page.waitForTimeout(1000)
         await page
             .waitForSelector('#submit_button')
             .then(() => page.click('#submit_button'))

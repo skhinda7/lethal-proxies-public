@@ -11,6 +11,7 @@ const buyElite = require('./commands/buyElite.js')
 const pricing = require('./commands/price.js');
 const buyVital = require('./commands/buyVital.js');
 const admin = require('./commands/admin.js');
+const buyToxic = require('./commands/buyToxic.js')
 const {
     ownerID,
     supportID,
@@ -99,6 +100,17 @@ client.on('messageCreate', message => {   //Buy Vital
                 misc.notAuthorized(message);
         }
     }
+});
+
+client.on('messageCreate', message => { //Buy Toxic
+    const args = message.content.split(' ')
+    if(args[0] === prefix + 'buytoxic') {
+        if(message.member.roles.cache.has(ownerID)) {
+        buyToxic.purchase(message, args) 
+        } else {
+            misc.notAuthorized(message);
+        }
+    } 
 });
 
 client.on('messageCreate', message => { //Discount Code
