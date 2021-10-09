@@ -14,7 +14,7 @@ function commands(message) {
     const embed = new Discord.MessageEmbed()
         .setTitle('Admin Commands')
         .setColor(0x00ffff)
-        .setDescription(`Here is a list of admin commands:\n\n\`\`!buyelite <amount of GB>\`\` - This will purchase X amount of Elite data and put it in the main user balance.\n\n\`\`!buyvital <amount of GB>\`\` - This will purchase X amount of Vital data and put it in the main user balance.
+        .setDescription(`Here is a list of admin commands:\n\n\`\`!buyelite <amount of GB>\`\` - This will purchase X amount of Elite data and put it in the main user balance.\n\n\`\`!buyvital <amount of GB>\`\` - This will purchase X amount of Vital data and put it in the main user balance.\n\n\`\`!buytoxic <amount of IPs>\`\` - This will purchase X amount of Toxic ISP's and will be delivered to email.
         \n\`\`!checkelite\`\` - This will check the main user balance for Elite\n\n\`\`!checkvital\`\` - This will check the main user balance for Vital.\n\n**Please use these commands wisely and only in staff channels.**`)
         .setFooter(footer, logo)
         message.channel.send({embeds : [embed]})

@@ -107,9 +107,9 @@ function purchase(message, args) {
         await message.channel.send('Await Checkout...')
         await page.waitForTimeout(2000)
         await page
-            .waitForSelector('#root > div > div.css-ltr-197ljhr > main > div > form > div.css-ltr-1wrbn70 > button')
+            .waitForSelector('#root > div > div.css-ltr-197ljhr > main > div > form > div:nth-child(9) > button')
             .then(console.log('Submitting Checkout!'))
-            .then(() => page.click('#root > div > div.css-ltr-197ljhr > main > div > form > div.css-ltr-1wrbn70 > button'))
+            .then(() => page.click('#root > div > div.css-ltr-197ljhr > main > div > form > div:nth-child(9) > button'))
         await page.waitForTimeout(1800)
         await page
             .waitForSelector('body > div.c-wrapper > div > main > div > div > div > div > div > table > tbody > tr:nth-child(6) > td:nth-child(1)')
