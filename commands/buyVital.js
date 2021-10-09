@@ -29,8 +29,58 @@ module.exports = {
 };
 
 function purchase(message, args) {
-    message.channel.send(`Initializing \`\`Vital\`\` order of \`\`${args[1]}\`\` GB...`)
+    const orderEmbed = message.embeds[0];
+    const orderInit = new Discord.MessageEmbed(orderEmbed)
+        .setTitle(`New Vital Order`)
+        .setDescription(`**Status:**\nInitiating order of \`\`${args[1]}\`\` GB`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const loggedIn = new Discord.MessageEmbed()
+        .setTitle(`New Vital Order`)
+        .setDescription(`**Status:**\nInitiating order of \`\`${args[1]}\`\` GB\nLogged In!`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()  
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const changingQuantity = new Discord.MessageEmbed()
+        .setTitle(`New Vital Order`)
+        .setDescription(`**Status:**\nInitiating order of \`\`${args[1]}\`\` GB\nLogged In!\nAccessing Vital Plan\nChanging Bandwidth Quantity`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const initiatingPayPal = new Discord.MessageEmbed()
+        .setTitle(`New Vital Order`)
+        .setDescription(`**Status:**\nInitiating order of \`\`${args[1]}\`\` GB\nLogged In!\nAccessing Vital Plan\nChanging Bandwidth Quantity\nInitiating PayPal Checkout`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const submittingBilling = new Discord.MessageEmbed()
+        .setTitle(`New Vital Order`)
+        .setDescription(`**Status:**\nInitiating order of \`\`${args[1]}\`\` GB\nLogged In!\nAccessing Vital Plan\nChanging Bandwidth Quantity\nInitiating PayPal Checkout\nSubmitting Billing`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const submittingOrder = new Discord.MessageEmbed()
+        .setTitle(`New Vital Order`)
+        .setDescription(`**Status:**\nInitiating order of \`\`${args[1]}\`\` GB\nLogged In!\nAccessing Vital Plan\nChanging Bandwidth Quantity\nInitiating PayPal Checkout\nSubmitting Billing\n__Submitting Order__`)
+        .setColor(0xFFAE42)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const checkedOut = new Discord.MessageEmbed()
+        .setTitle(`Successfully Checked Out!`)
+        .setDescription(`**Status:**\nInitiating order of \`\`${args[1]}\`\` GB\nLogged In!\nAccessing Vital Plan\nChanging Bandwidth Quantity\nInitiating PayPal Checkout\nSubmitting Billing\n__Submitting Order__\n\n **Order Information:**\n\nAmount Purchased: \`\`${args[1]}\`\` GB\nEmail used: \`\`${email}\`\``)
+        .setColor(0x00FF00)
+        .setTimestamp()
+        .setThumbnail('https://toppng.com/uploads/preview/best-free-checkmark-check-mark-transparent-background-free-11562873601nxp1ox2tft.png')
+        .setFooter(footer, logo)
     puppeteer.launch({ headless: false }).then(async browser => {
+        let orderInitEmbed1 = await message.channel.send({embeds: [orderInit]})
         const page = await browser.newPage();
         await page.setViewport({ width: 1400, height: 1000 });
         await page.goto(vitalPurchaseLink);
@@ -43,19 +93,18 @@ function purchase(message, args) {
             .waitForSelector('body > div.container > div > div > div > div > div.card.card-accent-primary.p-4 > div > form > div.row > div.col-4 > button')
             .then(() => page.click('form > div.row > div.col-4 > button'))
         await console.log('Logged In')
-        await message.channel.send('Logged In!')
+        await orderInitEmbed1.edit({embeds:[loggedIn]});
         await page 
             .waitForSelector('#quantity')
             .then(() => page.click('#quantity'))
             .then(() => page.keyboard.press('Backspace'))
             .then(() => page.type('#quantity', args[1]))
-        await message.channel.send(`Quantity set to \`\`${args[1]}\`\` GB...`)
+        await orderInitEmbed1.edit({embeds:[changingQuantity]});
         await page.waitForTimeout(2000)
         await page
             .waitForSelector('#submit_button')
             .then(() => page.click('#submit_button'))
         await console.log('Picking Payment Method...')
-        await message.channel.send('Selecting Payment Method...')
         await page.waitForTimeout(5000)
         await page
             .waitForSelector('#paypal')
@@ -63,20 +112,19 @@ function purchase(message, args) {
             .then(() => page.click('#payButton'))
         await page.waitForTimeout(5000)
         await console.log('Initiated PayPal Checkout')
-        await message.channel.send('Initiated PayPal Checkout')
+        await orderInitEmbed1.edit({embeds:[initiatingPayPal]});
         await page
             .waitForSelector('#startGuestOnboardingFlow')
             .then(() => page.click('#startGuestOnboardingFlow'))
         await page.waitForTimeout(2000)
         await console.log('Entering Email Address...')
-        await message.channel.send('Entering Email Address...')
         await page
             .waitForSelector('#onboardingFlowEmail')
             .then(() => page.type('#onboardingFlowEmail', email))
             .then(() => page.keyboard.press('Enter'))
         await page.waitForTimeout(3000)
         await console.log('Entering Billing Info...')
-        await message.channel.send('Submitting Billing...')
+        await orderInitEmbed1.edit({embeds:[submittingBilling]});
         await page
             .waitForSelector('#cardNumber')
             .then(() => page.type('#cardNumber', ccNumber))
@@ -90,7 +138,7 @@ function purchase(message, args) {
             .then(() => page.type('#billingPostalCode', zipCode))
             .then(() => page.type('#phone', phoneNumber))
         await console.log('Submitted Info... (Submit Checkout)')
-        await message.channel.send('Await Checkout...')
+        await orderInitEmbed1.edit({embeds:[submittingOrder]});
         await page.waitForTimeout(2000)
         await page
             .waitForSelector('#root > div > div.css-ltr-197ljhr > main > div > form > div:nth-child(9) > button')
@@ -100,12 +148,7 @@ function purchase(message, args) {
         await page
             .waitForSelector('body > div.c-wrapper > div > main > div > div > div > div > div > table > tbody > tr:nth-child(6) > td:nth-child(1)')
             .then(console.log(`Successfully Checked Out!`))
-        const embed = new Discord.MessageEmbed()
-            .setTitle('Successfully Checked Out!')
-            .setColor(0x00ff00)
-            .setDescription(`Order Information:\n\nAmount Purchased: \`\`${args[1]}\`\` GB\nEmail used: \`\`${email}\`\``)
-            .setFooter(footer, logo)
-        await message.channel.send({embeds: [embed]})
+            await orderInitEmbed1.edit({embeds:[checkedOut]});
         await page.waitForTimeout(2000)
     browser.close()
 
