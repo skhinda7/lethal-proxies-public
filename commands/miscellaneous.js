@@ -14,6 +14,6 @@ function notAuthorized(message) {
         .setTitle('**Not Authorized** :rage:')
         .setColor(0xFF0000)
         .setDescription(`You don't have the correct role to execute this command.`)
-        .setFooter('Lethal Proxies | Powered by Skhinda#0001', 'https://pbs.twimg.com/profile_images/1340499493775699968/fpXEBDud_400x400.jpg')
+        .setFooter('Lethal Proxies | Powered by Skhinda#0001', 'https://pbs.twimg.com/profile_images/1434037784931602434/Zdq0N7y7_400x400.jpg')
     message.channel.send({ embeds : [embed]});
 }

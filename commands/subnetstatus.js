@@ -22,7 +22,7 @@ function unlocked(message) {
         .setTitle('Subnet Status')
         .setColor(0x00ffff)
         .setDescription('Proxies Unlocked :unlock:')
-        .setFooter('Lethal Proxies | Powered by Skhinda#0001', 'https://pbs.twimg.com/profile_images/1340499493775699968/fpXEBDud_400x400.jpg')
+        .setFooter('Lethal Proxies | Powered by Skhinda#0001', 'https://pbs.twimg.com/profile_images/1434037784931602434/Zdq0N7y7_400x400.jpg')
     message.channel.send({ embeds : [embed]});
     
 };

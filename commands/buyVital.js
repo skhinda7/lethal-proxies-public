@@ -3,7 +3,7 @@ const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 puppeteer.use(StealthPlugin());
 const Discord = require('discord.js');
 const { Intents, Client, Message } = require('discord.js');
-const logo = ('https://pbs.twimg.com/profile_images/1340499493775699968/fpXEBDud_400x400.jpg');
+const logo = ('https://pbs.twimg.com/profile_images/1434037784931602434/Zdq0N7y7_400x400.jpg');
 const footer = ('Lethal Proxies | Powered by Skhinda#0001');
 
 const {
@@ -141,9 +141,9 @@ function purchase(message, args) {
         await orderInitEmbed1.edit({embeds:[submittingOrder]});
         await page.waitForTimeout(2000)
         await page
-            .waitForSelector('#root > div > div.css-ltr-197ljhr > main > div > form > div:nth-child(9) > button')
+            .waitForSelector('#root > div > div.css-ltr-197ljhr > main > div > form > div:nth-child(8) > button')
             .then(console.log('Submitting Checkout!'))
-            .then(() => page.click('#root > div > div.css-ltr-197ljhr > main > div > form > div:nth-child(9) > button'))
+            .then(() => page.click('#root > div > div.css-ltr-197ljhr > main > div > form > div:nth-child(8) > button'))
         await page.waitForTimeout(1800)
         await page
             .waitForSelector('body > div.c-wrapper > div > main > div > div > div > div > div > table > tbody > tr:nth-child(6) > td:nth-child(1)')

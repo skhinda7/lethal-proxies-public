@@ -11,13 +11,18 @@ const buyElite = require('./commands/buyElite.js')
 const pricing = require('./commands/price.js');
 const buyVital = require('./commands/buyVital.js');
 const admin = require('./commands/admin.js');
-const buyToxic = require('./commands/buyToxic.js')
+const buyToxic = require('./commands/buyToxic.js');
+const add = require('./commands/addData.js');
+const remove = require('./commands/removeData.js');
+const check = require('./commands/checkUsers.js')
+
+
 const {
     ownerID,
     supportID,
     token,
 } = require(`./commands/config.json`);
-const logo = ('https://pbs.twimg.com/profile_images/1340499493775699968/fpXEBDud_400x400.jpg');
+const logo = ('https://pbs.twimg.com/profile_images/1434037784931602434/Zdq0N7y7_400x400.jpg');
 const footer = ('Lethal Proxies | Powered by Skhinda#0001');
 const coupon = require('./commands/coupon.js');
 
@@ -58,7 +63,15 @@ client.on('messageCreate', message => { //Locked Subnet
     }
 });
 
-
+client.on('messageCreate', message => { //Check All Data
+    if(message.content === prefix + 'check') {
+        if(message.member.roles.cache.has(supportID)) {
+        dataChecker.checkAll(message)
+        } else {
+            misc.notAuthorized(message);
+        }
+    }
+});
 
 client.on('messageCreate', message => { //Check Elite Balance
     if(message.content === prefix + 'checkelite') {
@@ -129,4 +142,53 @@ client.on('messageCreate', message => {
         }
     }
 });
+
+client.on('messageCreate', message => { //Add Elite Data to Sub-User
+    const args = message.content.split(' ')
+    if(args[0] === prefix + 'addelite') {
+        message.delete({timeout: 2000})
+        if(message.member.roles.cache.has(ownerID)) {
+            add.addElite(message, args)
+        } else {
+            misc.notAuthorized(message);
+        }
+    }
+});
+
+client.on('messageCreate', message => { //Add Vital Data to Sub-User
+    const args = message.content.split(' ')
+    if(args[0] === prefix + 'addvital') {
+        message.delete({timeout: 2000})
+        if(message.member.roles.cache.has(ownerID)) {
+            add.addVital(message, args)
+        } else {
+            misc.notAuthorized(message);
+        }
+    }
+});
+
+client.on('messageCreate', message => { //Remove Vital Data from Sub-User
+    const args = message.content.split(' ')
+    if(args[0] === prefix + 'removevital') {
+        message.delete({timeout: 2000})
+        if(message.member.roles.cache.has(ownerID)) {
+            remove.removeVital(message, args)
+        } else {
+            misc.notAuthorized(message);
+        }
+    }
+});
+
+client.on('messageCreate', message => { //Check Vital Sub-User
+    const args = message.content.split(' ')
+    if(args[0] === prefix + 'checkvital') {
+        message.delete({timeout: 2000})
+        if(message.member.roles.cache.has(ownerID)) {
+            check.checkVitalUser(message, args)
+        } else {
+            misc.notAuthorized(message);
+        }
+    }
+});
+
 client.login(token);

@@ -3,7 +3,7 @@ const { Intents, Client, Message } = require('discord.js')
 const MessageEmbed = require('discord.js')
 const myIntents = new Intents();
 const client = new Discord.Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_TYPING, Intents.FLAGS.GUILD_MESSAGE_REACTIONS]});
-const logo = ('https://pbs.twimg.com/profile_images/1340499493775699968/fpXEBDud_400x400.jpg');
+const logo = ('https://pbs.twimg.com/profile_images/1434037784931602434/Zdq0N7y7_400x400.jpg');
 const footer = ('Lethal Proxies | Powered by Skhinda#0001');
 
 module.exports = {
