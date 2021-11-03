@@ -187,4 +187,4 @@ function purchase(message, args) {
             }
     browser.close()
     })
-}
+};

@@ -17,6 +17,7 @@ const remove = require('./commands/removeData.js');
 const check = require('./commands/checkUsers.js')
 
 
+
 const {
     ownerID,
     supportID,
@@ -185,6 +186,18 @@ client.on('messageCreate', message => { //Check Vital Sub-User
         message.delete({timeout: 2000})
         if(message.member.roles.cache.has(ownerID)) {
             check.checkVitalUser(message, args)
+        } else {
+            misc.notAuthorized(message);
+        }
+    }
+});
+
+client.on('messageCreate', message => { //Check Vital Sub-User
+    const args = message.content.split(' ')
+    if(args[0] === prefix + 'allelite') {
+        message.delete({timeout: 2000})
+        if(message.member.roles.cache.has(ownerID)) {
+            check.checkAllElite(message, args)
         } else {
             misc.notAuthorized(message);
         }

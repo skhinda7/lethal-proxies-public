@@ -8,11 +8,13 @@ const footer = ('Lethal Proxies | Powered by Skhinda#0001');
 const fetch = require('node-fetch')
 const{
     dashboardAPI,
-    vitalSingleUser
+    vitalSingleUser,
+    vitalAllUsers
 } = require('./config.json')
 
 module.exports = {
-    checkVitalUser
+    checkVitalUser,
+    checkAllElite
 }
 
 async function checkVitalUser(message, args) {
@@ -47,4 +49,25 @@ var embed = new Discord.MessageEmbed()
             .setDescription(`An error has occured:\n\`\`\`${err}\`\`\``)
         message.channel.send({embeds: [embed]});
     }
+};
+
+async function checkAllElite(message, args) {
+var myHeaders = new fetch.Headers();
+myHeaders.append("X-Access-Token", "Bearer " + dashboardAPI);
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+  const response = await fetch(`https://dashboard.iproyal.com/api/residential/royal/reseller/sub-users`, requestOptions)
+  const result = await response.text()
+  const result2 = await JSON.parse(result)
+  const embed = new Discord.MessageEmbed()
+      .setTitle('Elite All Users')
+      .setColor(0x8A2BE2)
+      .setDescription('Ok')
+  message.channel.send({embeds:[embed]});
+  console.log(result2)
 }
