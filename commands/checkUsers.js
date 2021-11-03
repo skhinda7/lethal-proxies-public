@@ -32,7 +32,7 @@ var requestOptions = {
 };
 
 try {
-var response = await fetch(vitalSingleUser, requestOptions)
+var response = await fetch(vitalSingleUser, requestOptions) //Single Vital User
 const result = await response.json()
 var embed = new Discord.MessageEmbed()
         .setTitle('Vital Balance')

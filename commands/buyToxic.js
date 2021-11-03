@@ -95,6 +95,7 @@ function purchase(message, args) {
         let orderInitEmbed1 = await message.channel.send({embeds: [orderInit]})
         const page = await browser.newPage();
         await page.setViewport({ width: 1400, height: 1000 });
+        try {
         await page.goto(dashboard);
         await page
             .waitForSelector('form > div.input-group.mb-3 > input')
@@ -173,6 +174,13 @@ function purchase(message, args) {
                 .then(console.log(`Successfully Checked Out!`))
             await orderInitEmbed1.edit({embeds:[checkedOut]});
             await page.waitForTimeout(2000)
+        } catch(err) {
+                const embed = new Discord.MessageEmbed()
+                    .setTitle('Uh Oh!')
+                    .setColor('RED')
+                    .setDescription(`An error has occured:\n\`\`\`${err}\`\`\``)
+                message.channel.send({embeds: [embed]});
+        }
     browser.close();
     });
 }
