@@ -14,7 +14,7 @@ const admin = require('./commands/admin.js');
 const buyToxic = require('./commands/buyToxic.js');
 const add = require('./commands/addData.js');
 const remove = require('./commands/removeData.js');
-const check = require('./commands/checkUsers.js')
+const check = require('./commands/checkUsers.js');
 
 
 
@@ -26,6 +26,7 @@ const {
 const logo = ('https://pbs.twimg.com/profile_images/1434037784931602434/Zdq0N7y7_400x400.jpg');
 const footer = ('Lethal Proxies | Powered by Skhinda#0001');
 const coupon = require('./commands/coupon.js');
+const { EventEmitter } = require('puppeteer');
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
@@ -94,11 +95,32 @@ client.on('messageCreate', message => { //Check Vital Balance
     }
 });
 
+client.on('messageCreate', message => {   //Top-up Elite
+    if(message.content === prefix + 'topelite') {
+        if(message.member.roles.cache.has(supportID)) {
+        buyElite.topup(message)
+            }       else {
+                    misc.notAuthorized(message);
+        }
+    }
+});
+
 client.on('messageCreate', message => {   //Buy Elite
     const args = message.content.split(' ')
     if(args[0] === prefix + 'buyelite') {
         if(message.member.roles.cache.has(supportID)) {
-        buyElite.purchase(message, args);
+        buyElite.purchase(message, args)
+            }       else {
+                    misc.notAuthorized(message);
+        }
+    }
+});
+
+client.on('messageCreate', message => {   //Top-up Vital
+    const args = message.content.split(' ')
+    if(message.content === prefix + 'topvital') {
+        if(message.member.roles.cache.has(supportID)) {
+        buyVital.topup(message);
             } else {
                 misc.notAuthorized(message);
         }
@@ -203,5 +225,4 @@ client.on('messageCreate', message => { //Check Vital Sub-User
         }
     }
 });
-
 client.login(token);
