@@ -109,13 +109,6 @@ async function topup(message) {
         .setTimestamp()
         .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
         .setFooter(footer, logo)
-    const checkedOut = new Discord.MessageEmbed()
-        .setTitle(`Successfully Checked Out!`)
-        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!\nAccessing Elite Plan\nAdding Coupon Code\nChanging Bandwidth Quantity\nInitiating PayPal Checkout\nSubmitting Billing\n__Submitting Order__\n\n **Order Information:**\n\nAmount Purchased: \`\`${neededBalance}\`\` GB\nUpdated Balance: \`\`${(neededBalance) += (currentBalance2)}\`\``)
-        .setColor(0x00FF00)
-        .setTimestamp()
-        .setThumbnail('https://toppng.com/uploads/preview/best-free-checkmark-check-mark-transparent-background-free-11562873601nxp1ox2tft.png')
-        .setFooter(footer, logo)
     puppeteer.launch({headless: false}, { args: ['--no-sandbox'] }).then(async browser => {
         let orderInitEmbed1 = await message.channel.send({embeds: [orderInit]})
         const page = await browser.newPage();
@@ -137,8 +130,8 @@ async function topup(message) {
         await orderInitEmbed1.edit({embeds:[accessingElite]});
         await page.waitForTimeout(5000)
         await page
-            .waitForSelector('body > div.c-wrapper > div > main > div > div > div > div > div:nth-child(2) > a:nth-child(1)')
-            .then(() => page.click('body > div.c-wrapper > div > main > div > div > div > div > div:nth-child(2) > a:nth-child(1)'))
+            .waitForSelector('body > div.c-wrapper > div > main > div > div > div > div > div > a:nth-child(1)')
+            .then(() => page.click('body > div.c-wrapper > div > main > div > div > div > div > div > a:nth-child(1)'))
         await page
             .waitForSelector('#coupon_code')
             .then(() => page.type('#coupon_code', 'max10'))
@@ -200,6 +193,13 @@ async function topup(message) {
         await page
             .waitForSelector('body > div.c-wrapper > div > main > div > div > div > div > div > table > tbody > tr:nth-child(6) > td:nth-child(1)')
             .then(console.log(`Successfully Checked Out!`))
+        const checkedOut = new Discord.MessageEmbed()
+            .setTitle(`Successfully Checked Out!`)
+            .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!\nAccessing Elite Plan\nAdding Coupon Code\nChanging Bandwidth Quantity\nInitiating PayPal Checkout\nSubmitting Billing\n__Submitting Order__\n\n **Order Information:**\n\nAmount Purchased: \`\`${neededBalance}\`\` GB\nUpdated Balance: \`\`${(neededBalance) += (currentBalance2)}\`\``)
+            .setColor(0x00FF00)
+            .setTimestamp()
+            .setThumbnail('https://toppng.com/uploads/preview/best-free-checkmark-check-mark-transparent-background-free-11562873601nxp1ox2tft.png')
+            .setFooter(footer, logo)
         await orderInitEmbed1.edit({embeds:[checkedOut]});
         await page.waitForTimeout(2000)
         } catch(err) {
