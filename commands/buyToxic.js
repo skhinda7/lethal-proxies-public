@@ -91,7 +91,7 @@ function purchase(message, args) {
         .setTimestamp()
         .setThumbnail('https://toppng.com/uploads/preview/best-free-checkmark-check-mark-transparent-background-free-11562873601nxp1ox2tft.png')
         .setFooter(footer, logo)
-    puppeteer.launch({headless: false}, { args: ['--no-sandbox'] }).then(async browser => {
+    puppeteer.launch({headless: true }, { args: ['--no-sandbox'] }).then(async browser => {
         let orderInitEmbed1 = await message.channel.send({embeds: [orderInit]})
         const page = await browser.newPage();
         await page.setViewport({ width: 1400, height: 1000 });
