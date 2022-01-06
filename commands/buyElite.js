@@ -109,7 +109,7 @@ async function topup(message) {
         .setTimestamp()
         .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
         .setFooter(footer, logo)
-    puppeteer.launch({headless: false}, { args: ['--no-sandbox'] }).then(async browser => {
+    puppeteer.launch({headless: true}, { args: ['--no-sandbox'] }).then(async browser => {
         let orderInitEmbed1 = await message.channel.send({embeds: [orderInit]})
         const page = await browser.newPage();
         await page.setViewport({ width: 1400, height: 1000 });
