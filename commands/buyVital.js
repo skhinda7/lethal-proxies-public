@@ -229,16 +229,16 @@ function purchase(message, args) {
         .setTimestamp()
         .setThumbnail('https://toppng.com/uploads/preview/best-free-checkmark-check-mark-transparent-background-free-11562873601nxp1ox2tft.png')
         .setFooter(footer, logo)
-    puppeteer.launch({ headless: false }).then(async browser => {
+    puppeteer.launch({ headless: true }).then(async browser => {
         let orderInitEmbed1 = await message.channel.send({embeds: [orderInit]})
         const page = await browser.newPage();
         await page.setViewport({ width: 1400, height: 1000 });
         try{
         await page.goto(vitalPurchaseLink);
         await page //Login Page
-            .waitForSelector('form > div.input-group.mb-3 > input')
-            .then(() => page.type('form > div.input-group.mb-3 > input', email))
-            .then(() => page.type('form > div.input-group.mb-4 > input', password))
+            .waitForSelector('body > div.container > div > div > div > div > div.card.card-accent-primary.p-4 > div > form > div.input-group.mb-3 > input')
+            .then(() => page.type('body > div.container > div > div > div > div > div.card.card-accent-primary.p-4 > div > form > div.input-group.mb-3 > input', email))
+            .then(() => page.type('body > div.container > div > div > div > div > div.card.card-accent-primary.p-4 > div > form > div.input-group.mb-4 > input', password))
         await page.waitForTimeout(1000)
         await page
             .waitForSelector('body > div.container > div > div > div > div > div.card.card-accent-primary.p-4 > div > form > div.row > div.col-4 > button')

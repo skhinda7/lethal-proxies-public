@@ -9,7 +9,8 @@ const fetch = require('node-fetch')
 const{
     dashboardAPI,
     vitalSingleUser,
-    vitalAllUsers
+    vitalAllUsers,
+    checkEliteUserData
 } = require('./config.json')
 
 module.exports = {
@@ -61,13 +62,15 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-  const response = await fetch(`https://dashboard.iproyal.com/api/residential/royal/reseller/sub-users`, requestOptions)
+  const response = await fetch(checkEliteUserData + args[1], requestOptions)
   const result = await response.text()
   const result2 = await JSON.parse(result)
+  const custom = args[1]
+  const array = result2.data
+  const userTraffic = array.find(u => u.username === args[1]).availableTraffic
   const embed = new Discord.MessageEmbed()
-      .setTitle('Elite All Users')
+      .setTitle(`Username: \`\`${args[1]}\`\``)
       .setColor(0x8A2BE2)
-      .setDescription('Ok')
+      .setDescription(`Available Traffic: ${userTraffic}`)
   message.channel.send({embeds:[embed]});
-  console.log(result2)
 }

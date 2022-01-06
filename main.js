@@ -19,8 +19,8 @@ const check = require('./commands/checkUsers.js');
 
 
 const {
-    ownerID,
     supportID,
+    ownerID,
     token,
 } = require(`./commands/config.json`);
 const logo = ('https://pbs.twimg.com/profile_images/1434037784931602434/Zdq0N7y7_400x400.jpg');
@@ -47,7 +47,7 @@ client.on('messageCreate', message => { //Displays Pricing
 
 client.on('messageCreate', message => {
     if(message.content === prefix + 'unlock') { //Unlocked Subnet
-        if(message.member.roles.cache.has(ownerID)) {
+        if(message.member.roles.cache.has(supportID)) {
         subnetStatus.unlocked(message);
         } else {
             misc.notAuthorized(message);
@@ -57,7 +57,7 @@ client.on('messageCreate', message => {
 
 client.on('messageCreate', message => { //Locked Subnet
     if(message.content === prefix + 'lock') {
-        if(message.member.roles.cache.has(ownerID)) {
+        if(message.member.roles.cache.has(supportID)) {
         subnetStatus.locked(message);
         } else {
             misc.notAuthorized(message);
@@ -141,7 +141,7 @@ client.on('messageCreate', message => {   //Buy Vital
 client.on('messageCreate', message => { //Buy Toxic
     const args = message.content.split(' ')
     if(args[0] === prefix + 'buytoxic') {
-        if(message.member.roles.cache.has(ownerID)) {
+        if(message.member.roles.cache.has(supportID)) {
         buyToxic.purchase(message, args) 
         } else {
             misc.notAuthorized(message);
@@ -170,7 +170,7 @@ client.on('messageCreate', message => { //Add Elite Data to Sub-User
     const args = message.content.split(' ')
     if(args[0] === prefix + 'addelite') {
         message.delete({timeout: 2000})
-        if(message.member.roles.cache.has(ownerID)) {
+        if(message.member.roles.cache.has(supportID)) {
             add.addElite(message, args)
         } else {
             misc.notAuthorized(message);
@@ -182,7 +182,7 @@ client.on('messageCreate', message => { //Add Vital Data to Sub-User
     const args = message.content.split(' ')
     if(args[0] === prefix + 'addvital') {
         message.delete({timeout: 2000})
-        if(message.member.roles.cache.has(ownerID)) {
+        if(message.member.roles.cache.has(supportID)) {
             add.addVital(message, args)
         } else {
             misc.notAuthorized(message);
@@ -194,7 +194,7 @@ client.on('messageCreate', message => { //Remove Vital Data from Sub-User
     const args = message.content.split(' ')
     if(args[0] === prefix + 'removevital') {
         message.delete({timeout: 2000})
-        if(message.member.roles.cache.has(ownerID)) {
+        if(message.member.roles.cache.has(supportID)) {
             remove.removeVital(message, args)
         } else {
             misc.notAuthorized(message);
@@ -206,7 +206,7 @@ client.on('messageCreate', message => { //Check Vital Sub-User
     const args = message.content.split(' ')
     if(args[0] === prefix + 'checkvital') {
         message.delete({timeout: 2000})
-        if(message.member.roles.cache.has(ownerID)) {
+        if(message.member.roles.cache.has(supportID)) {
             check.checkVitalUser(message, args)
         } else {
             misc.notAuthorized(message);
@@ -214,11 +214,11 @@ client.on('messageCreate', message => { //Check Vital Sub-User
     }
 });
 
-client.on('messageCreate', message => { //Check Vital Sub-User
+client.on('messageCreate', message => { //Check Elite Sub-User
     const args = message.content.split(' ')
-    if(args[0] === prefix + 'allelite') {
+    if(args[0] === prefix + 'eliteuser') {
         message.delete({timeout: 2000})
-        if(message.member.roles.cache.has(ownerID)) {
+        if(message.member.roles.cache.has(supportID)) {
             check.checkAllElite(message, args)
         } else {
             misc.notAuthorized(message);
