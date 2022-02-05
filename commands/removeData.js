@@ -8,11 +8,13 @@ const footer = ('Lethal Proxies | Powered by Skhinda#0001');
 const fetch = require('node-fetch')
 const{
     dashboardAPI,
-    vitalSubtractLink
+    vitalSubtractLink,
+    eliteAddLink
 } = require('./config.json')
 
 module.exports = {
-    removeVital
+    removeVital,
+    removeEliteFromUser
 }
 
 function removeVital(message, args) {
@@ -51,3 +53,39 @@ fetch(vitalSubtractLink, requestOptions)
         message.channel.send({embeds: [embed]});
     }
 }
+
+async function removeEliteFromUser(message, args) {
+  var myHeaders = new fetch.Headers();
+myHeaders.append("X-Access-Token", "Bearer " + dashboardAPI);
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  "amount": args[2]
+});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+try {
+const response2 = await fetch(eliteAddLink + args[1] + `/take-traffic`, requestOptions)
+const result2 = await response2.text()
+const result3 = await JSON.parse(result2)
+const embed1 = new Discord.MessageEmbed()
+    .setTitle(`Removed data!`)
+    .setDescription(`Removed \`\`${args[2]}\`\` GB from \`\`${args[1]}\`\`\n\nUpdated Balance: \`\`${result3.availableTraffic}\`\` GB`)
+    .setColor(0x8A2BE2)
+    .setTimestamp()
+message.channel.send({embeds:[embed1]})
+
+} catch(err) {
+  const embed = new Discord.MessageEmbed()
+      .setTitle('Uh Oh!')
+      .setColor('RED')
+      .setDescription(`An error has occured:\n\`\`\`${err}\`\`\``)
+  message.channel.send({embeds: [embed]});
+  console.log(err)
+}};

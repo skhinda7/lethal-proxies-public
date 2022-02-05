@@ -109,7 +109,7 @@ async function topup(message) {
         .setTimestamp()
         .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
         .setFooter(footer, logo)
-    puppeteer.launch({headless: true}, { args: ['--no-sandbox'] }).then(async browser => {
+    puppeteer.launch({headless: false}, { args: ['--no-sandbox'] }).then(async browser => {
         let orderInitEmbed1 = await message.channel.send({embeds: [orderInit]})
         const page = await browser.newPage();
         await page.setViewport({ width: 1400, height: 1000 });
@@ -285,9 +285,9 @@ function purchase(message, args) {
         try {
         await page.goto(dashboard);
         await page
-            .waitForSelector('form > div.input-group.mb-3 > input')
-            .then(() => page.type('form > div.input-group.mb-3 > input', email))
-            .then(() => page.type('form > div.input-group.mb-4 > input', password))
+            .waitForSelector('body > div.container > div > div > div > div > div.card.card-accent-primary.p-4 > div > form > div.input-group.mb-3 > input')
+            .then(() => page.type('body > div.container > div > div > div > div > div.card.card-accent-primary.p-4 > div > form > div.input-group.mb-3 > input', email))
+            .then(() => page.type('body > div.container > div > div > div > div > div.card.card-accent-primary.p-4 > div > form > div.input-group.mb-3 > input', password))
             .then(() => page.click('form > div.row > div.col-4 > button'))
         await orderInitEmbed1.edit({embeds:[loggedIn]});
         await console.log('Logged In')
