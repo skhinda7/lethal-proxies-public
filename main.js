@@ -15,6 +15,7 @@ const buyToxic = require('./commands/buyToxic.js');
 const add = require('./commands/addData.js');
 const remove = require('./commands/removeData.js');
 const check = require('./commands/checkUsers.js');
+const payment = require('./commands/payment.js');
 
 
 
@@ -45,6 +46,17 @@ client.on('messageCreate', message => {
     if(message.content === prefix + 'unlock') { //Unlocked Subnet
         if(message.member.roles.cache.has(supportID2)) {
         subnetStatus.unlocked(message);
+        } else {
+            misc.notAuthorized(message);
+        }
+    }
+});
+
+client.on('messageCreate', message => {
+    const args = message.content.split(' ')
+    if(args[0] === prefix + 'pay') { //Unlocked Subnet
+        if(message.member.roles.cache.has(supportID2)) {
+        payment.payment(message, args);
         } else {
             misc.notAuthorized(message);
         }
@@ -95,6 +107,16 @@ client.on('messageCreate', message => {   //Top-up Elite
     if(message.content === prefix + 'topelite') {
         if(message.member.roles.cache.has(supportID2)) {
         buyElite.topup(message)
+            }       else {
+                    misc.notAuthorized(message);
+        }
+    }
+});
+
+client.on('messageCreate', message => {   //Top-up Elite
+    if(message.content === prefix + 'topelite2') {
+        if(message.member.roles.cache.has(supportID2)) {
+        buyElite.topup2(message)
             }       else {
                     misc.notAuthorized(message);
         }

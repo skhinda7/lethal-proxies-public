@@ -27,12 +27,16 @@ const {
     fakeEmail,
     fakeName,
     prefix,
-    eliteDataCheck
+    eliteDataCheck,
+    card2,
+    cvv2,
+    expiry2
 } = require('./config.json');
 
 module.exports = {
     purchase,
-    topup
+    topup,
+    topup2
 }
 
 async function topup(message) {
@@ -50,7 +54,7 @@ async function topup(message) {
     const result2 = await JSON.parse(result)
     var currentBalance = ((result2.availableTraffic).toFixed(0))
     var currentBalance2 = ((result2.availableTraffic).toFixed(2))
-    const result3 = (21 - (currentBalance))
+    const result3 = (52 - (currentBalance))
     var neededBalance = (JSON.stringify(result3))
     const orderEmbed = message.embeds[0];
     const orderInit = new Discord.MessageEmbed(orderEmbed)
@@ -151,7 +155,7 @@ async function topup(message) {
             .waitForSelector('#submit_button')
             .then(() => page.click('#submit_button'))
         await page.waitForTimeout(5000)
-        await page
+        page
             .waitForSelector('#paypal')
             .then(() => page.click('#paypal'))
             .then(() => page.click('#payButton'))
@@ -206,7 +210,8 @@ async function topup(message) {
             const embed = new Discord.MessageEmbed()
                 .setTitle('Uh Oh!')
                 .setColor('RED')
-                .setDescription(`An error has occured:\n\`\`\`${err}\`\`\``)
+                .setDescription(`An error has occured:\n\`\`\`${err}\`\`\`
+                > If PayPal is disabled on the website, please use command, \`\`!topelite2\`\``)
             message.channel.send({embeds: [embed]});
             }
     browser.close()
@@ -374,3 +379,258 @@ function purchase(message, args) {
     browser.close()
     })
 };
+
+async function topup2(message) {
+    var myHeaders = new fetch.Headers();
+    myHeaders.append("X-Access-Token", "Bearer " + dashboardAPI);
+
+    var requestOptions = {
+         method: 'GET',
+         headers: myHeaders,
+            redirect: 'follow'
+    };
+
+    const response = await fetch(eliteDataCheck, requestOptions)
+    const result = await response.text()
+    const result2 = await JSON.parse(result)
+    var currentBalance = ((result2.availableTraffic).toFixed(0))
+    var currentBalance2 = ((result2.availableTraffic).toFixed(2))
+    const result3 = (50 - (currentBalance))
+    var neededBalance = (JSON.stringify(result3))
+    const orderEmbed = message.embeds[0];
+    if (result3 < 30) {
+
+    }
+    const orderInit = new Discord.MessageEmbed(orderEmbed)
+        .setTitle(`New Elite Order`)
+        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const loggedIn = new Discord.MessageEmbed()
+        .setTitle(`New Elite Order`)
+        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()  
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const accessingElite = new Discord.MessageEmbed()
+        .setTitle(`New Elite Order`)
+        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!\nAccessing Elite Plan`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const addingCoupon = new Discord.MessageEmbed()
+        .setTitle(`New Elite Order`)
+        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!\nAccessing Elite Plan\nAdding Coupon Code`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const changingQuantity = new Discord.MessageEmbed()
+        .setTitle(`New Elite Order`)
+        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!\nAccessing Elite Plan\nAdding Coupon Code\nChanging Bandwidth Quantity`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const initiatingPayPal = new Discord.MessageEmbed()
+        .setTitle(`New Elite Order`)
+        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!\nAccessing Elite Plan\nAdding Coupon Code\nChanging Bandwidth Quantity\nInitiating PayPal Checkout`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const submittingBilling = new Discord.MessageEmbed()
+        .setTitle(`New Elite Order`)
+        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!\nAccessing Elite Plan\nAdding Coupon Code\nChanging Bandwidth Quantity\nInitiating PayPal Checkout\nSubmitting Billing`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const submittingOrder = new Discord.MessageEmbed()
+        .setTitle(`New Elite Order`)
+        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!\nAccessing Elite Plan\nAdding Coupon Code\nChanging Bandwidth Quantity\nInitiating PayPal Checkout\nSubmitting Billing\n__Submitting Order__`)
+        .setColor(0xFFAE42)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    if (neededBalance < 30) {
+        puppeteer.launch({headless: false}, { args: ['--no-sandbox'] }).then(async browser => {
+            let orderInitEmbed1 = await message.channel.send({embeds: [orderInit]})
+            const page = await browser.newPage();
+            await page.setViewport({ width: 1400, height: 1000 });
+            try {    
+            await page.goto(dashboard);
+            await page
+                .waitForSelector('form > div.input-group.mb-3 > input')
+                .then(() => page.type('form > div.input-group.mb-3 > input', email))
+                .then(() => page.type('form > div.input-group.mb-4 > input', password))
+                .then(() => page.click('form > div.row > div.col-4 > button'))
+            await orderInitEmbed1.edit({embeds:[loggedIn]});
+            await console.log('Logged In')
+            await page.waitForTimeout(2000)
+            await page
+                .waitForSelector('#sidebar > ul > li:nth-child(4) > a')
+                .then(() => page.click('#sidebar > ul > li:nth-child(4) > a'))
+            await console.log('Accessing Elite Plan...')
+            await orderInitEmbed1.edit({embeds:[accessingElite]});
+            await page.waitForTimeout(5000)
+            await page
+                .waitForSelector('body > div.c-wrapper > div > main > div > div > div > div > div > a:nth-child(1)')
+                .then(() => page.click('body > div.c-wrapper > div > main > div > div > div > div > div > a:nth-child(1)'))
+            await page
+                .waitForSelector('#coupon_code')
+                .then(() => page.type('#coupon_code', 'max10'))
+                .then(() => page.click('#coupon_submit_button'))
+            await console.log('Adding Coupon Code...')
+            await orderInitEmbed1.edit({embeds:[addingCoupon]})
+            await page.waitForTimeout(5000)
+            await page 
+                .waitForSelector('#quantity')
+                .then(() => page.click('#quantity'))
+                .then(() => page.keyboard.press('Backspace'))
+                .then(() => page.type('#quantity', (neededBalance)))
+            await console.log('Changing GB Quantity...')
+            await orderInitEmbed1.edit({embeds:[changingQuantity]});
+            await page.waitForTimeout(1000)
+            await page
+                .waitForSelector('#submit_button')
+                .then(() => page.click('#submit_button'))
+            await page.waitForTimeout(5000)
+            await page
+                .waitForSelector('#card')
+                .then(() => page.click('#card'))
+            await page.waitForTimeout(500)
+            await page.click('#card-number')
+            await page
+            .waitForSelector('#card-number')
+            .then(() => page.type('#card-number', card2, {delay : 100}))
+        await page.waitForTimeout(300)
+        await page
+            .click('#card-exp')
+            .then(() => page.type('#card-exp', expiry2, {delay : 100}))
+        await page.waitForTimeout(300)    
+        await page
+            .click('#card-cvc')
+            .then(() => page.type('#card-cvc', cvv2, {delay : 100}))
+        await page.waitForTimeout(300)
+        await page
+            .waitForSelector('#stripe-first-name')
+            .then(() => page.type('#stripe-first-name', firstName, {delay : 10}))
+            .then(() => page.type('#stripe-last-name', lastName, {delay : 10}))  
+        await page.waitForTimeout(300)
+            await page
+                .waitForSelector('#payButton')
+                .then(() => page.click('#payButton'))
+            await page
+                .waitForSelector('body > div.c-wrapper > div > main > div > div > div > div > div > table > tbody > tr:nth-child(6) > td:nth-child(1)')
+                .then(console.log(`Successfully Checked Out!`))
+            const checkedOut = new Discord.MessageEmbed()
+                .setTitle(`Successfully Checked Out!`)
+                .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!\nAccessing Elite Plan\nAdding Coupon Code\nChanging Bandwidth Quantity\nInitiating PayPal Checkout\nSubmitting Billing\n__Submitting Order__\n\n **Order Information:**\n\nAmount Purchased: \`\`${neededBalance}\`\` GB\nUpdated Balance: \`\`${(neededBalance) += (currentBalance2)}\`\``)
+                .setColor(0x00FF00)
+                .setTimestamp()
+                .setThumbnail('https://toppng.com/uploads/preview/best-free-checkmark-check-mark-transparent-background-free-11562873601nxp1ox2tft.png')
+                .setFooter(footer, logo)
+            await orderInitEmbed1.edit({embeds:[checkedOut]});
+            await page.waitForTimeout(2000)
+        } catch(err) {
+            const embed = new Discord.MessageEmbed()
+                .setTitle('Uh Oh!')
+                .setColor('RED')
+                .setDescription(`An error has occured:\n\`\`\`${err}\`\`\`
+                > It's possible that the page timed out, please try again.`)
+            message.channel.send({embeds: [embed]});
+            } 
+    browser.close()
+        }) 
+    } else {
+        puppeteer.launch({headless: false}, { args: ['--no-sandbox'] }).then(async browser => {
+            let orderInitEmbed1 = await message.channel.send({embeds: [orderInit]})
+            const page = await browser.newPage();
+            await page.setViewport({ width: 1400, height: 1000 });
+            try {    
+            await page.goto(dashboard);
+            await page
+                .waitForSelector('form > div.input-group.mb-3 > input')
+                .then(() => page.type('form > div.input-group.mb-3 > input', email))
+                .then(() => page.type('form > div.input-group.mb-4 > input', password))
+                .then(() => page.click('form > div.row > div.col-4 > button'))
+            await orderInitEmbed1.edit({embeds:[loggedIn]});
+            await console.log('Logged In')
+            await page.waitForTimeout(2000)
+            await page
+                .waitForSelector('#sidebar > ul > li:nth-child(4) > a')
+                .then(() => page.click('#sidebar > ul > li:nth-child(4) > a'))
+            await console.log('Accessing Elite Plan...')
+            await orderInitEmbed1.edit({embeds:[accessingElite]});
+            await page.waitForTimeout(2500)
+            await page
+                .waitForSelector('body > div.c-wrapper > div > main > div > div > div > div > div > a:nth-child(1)')
+                .then(() => page.click('body > div.c-wrapper > div > main > div > div > div > div > div > a:nth-child(1)'))
+            await page.waitForTimeout(3000)
+            await page 
+                .waitForSelector('#quantity')
+                .then(() => page.click('#quantity'))
+                .then(() => page.keyboard.press('Backspace'))
+                .then(() => page.type('#quantity', (neededBalance)))
+            await console.log('Changing GB Quantity...')
+            await orderInitEmbed1.edit({embeds:[changingQuantity]});
+            await page.waitForTimeout(1000)
+            await page
+                .waitForSelector('#submit_button')
+                .then(() => page.click('#submit_button'))
+            await page.waitForTimeout(300)
+            await page
+                .waitForSelector('#card')
+                .then(() => page.click('#card'))
+            await page.waitForTimeout(500)
+            await page.click('#card-number')
+            await page
+                .waitForSelector('#card-number')
+                .then(() => page.type('#card-number', card2, {delay : 100}))
+            await page.waitForTimeout(300)
+            await page
+                .click('#card-exp')
+                .then(() => page.type('#card-exp', expiry2, {delay : 100}))
+            await page.waitForTimeout(300)    
+            await page
+                .click('#card-cvc')
+                .then(() => page.type('#card-cvc', cvv2, {delay : 100}))
+            await page.waitForTimeout(300)
+            await page
+                .waitForSelector('#stripe-first-name')
+                .then(() => page.type('#stripe-first-name', firstName, {delay : 10}))
+                .then(() => page.type('#stripe-last-name', lastName, {delay : 10}))  
+            await page.waitForTimeout(300)
+            await page
+                .waitForSelector('#payButton')
+                .then(() => page.click('#payButton'))
+            await page
+                .waitForSelector('body > div.c-wrapper > div > main > div > div > div > div > div > table > tbody > tr:nth-child(6) > td:nth-child(1)')
+                .then(console.log(`Successfully Checked Out!`))
+            const checkedOut = new Discord.MessageEmbed()
+                .setTitle(`Successfully Checked Out!`)
+                .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!\nAccessing Elite Plan\nAdding Coupon Code\nChanging Bandwidth Quantity\nInitiating PayPal Checkout\nSubmitting Billing\n__Submitting Order__\n\n **Order Information:**\n\nAmount Purchased: \`\`${neededBalance}\`\` GB\nUpdated Balance: \`\`${(neededBalance) += (currentBalance2)}\`\``)
+                .setColor(0x00FF00)
+                .setTimestamp()
+                .setThumbnail('https://toppng.com/uploads/preview/best-free-checkmark-check-mark-transparent-background-free-11562873601nxp1ox2tft.png')
+                .setFooter(footer, logo)
+            await orderInitEmbed1.edit({embeds:[checkedOut]});
+            await page.waitForTimeout(2000)
+        } catch(err) {
+            const embed = new Discord.MessageEmbed()
+                .setTitle('Uh Oh!')
+                .setColor('RED')
+                .setDescription(`An error has occured:\n\`\`\`${err}\`\`\`
+                > It's possible that the page timed out, please try again.`)
+            message.channel.send({embeds: [embed]});
+            } 
+    browser.close()
+        }) 
+    }
+        
+}
