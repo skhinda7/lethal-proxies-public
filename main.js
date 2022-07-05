@@ -16,6 +16,7 @@ const add = require('./commands/addData.js');
 const remove = require('./commands/removeData.js');
 const check = require('./commands/checkUsers.js');
 const payment = require('./commands/payment.js');
+const subnet = require('./commands/checkSubnetStock.js');
 
 
 
@@ -29,11 +30,11 @@ const footer = ('Lethal Proxies | Powered by Skhinda#4392');
 const coupon = require('./commands/coupon.js');
 const { EventEmitter } = require('puppeteer');
 
-const supportID2 = "916745160686198864";
+const supportID2 = "953825633635545138";
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
-    client.user.setPresence({ activities: [{ name: 'activity' }], status: 'idle' });
+    client.user.setPresence({ activities: [{ name: 'with Proxies' }], status: 'online' });
 });
 
 client.on('messageCreate', message => { //Displays Pricing
@@ -44,6 +45,7 @@ client.on('messageCreate', message => { //Displays Pricing
 
 client.on('messageCreate', message => {
     if(message.content === prefix + 'unlock') { //Unlocked Subnet
+        message.delete({ timeout : 1000 })
         if(message.member.roles.cache.has(supportID2)) {
         subnetStatus.unlocked(message);
         } else {
@@ -54,7 +56,25 @@ client.on('messageCreate', message => {
 
 client.on('messageCreate', message => {
     const args = message.content.split(' ')
+    if(args[0] === '!stock') { //Check ATT Stock
+        message.delete({timeout : 5000})
+            if(message.member.roles.cache.has(supportID2)) {
+                if(args[1] === 'all') {
+                    subnet.all(message, args);
+                } else {
+                    subnet.att(message, args);
+                    }
+            } else {
+                misc.notAuthorized(message);
+        }
+    }
+});
+
+
+client.on('messageCreate', message => {
+    const args = message.content.split(' ')
     if(args[0] === prefix + 'pay') { //Unlocked Subnet
+        message.delete({delay: 1000})
         if(message.member.roles.cache.has(supportID2)) {
         payment.payment(message, args);
         } else {
@@ -65,6 +85,7 @@ client.on('messageCreate', message => {
 
 client.on('messageCreate', message => { //Locked Subnet
     if(message.content === prefix + 'lock') {
+        message.delete({delay: 1000})
         if(message.member.roles.cache.has(supportID2)) {
         subnetStatus.locked(message);
         } else {
@@ -75,6 +96,7 @@ client.on('messageCreate', message => { //Locked Subnet
 
 client.on('messageCreate', message => { //Check All Data
     if(message.content === prefix + 'check') {
+        message.delete({delay: 1000})
         if(message.member.roles.cache.has(supportID2)) {
         dataChecker.checkAll(message)
         } else {
@@ -85,6 +107,7 @@ client.on('messageCreate', message => { //Check All Data
 
 client.on('messageCreate', message => { //Check Elite Balance
     if(message.content === prefix + 'checkelite') {
+        message.delete({delay: 1000})
         if(message.member.roles.cache.has(supportID2)) {
         dataChecker.checkElite(message)
         } else {
@@ -95,6 +118,7 @@ client.on('messageCreate', message => { //Check Elite Balance
 
 client.on('messageCreate', message => { //Check Vital Balance
     if(message.content === prefix + 'checkvital') {
+        message.delete({delay: 1000})
         if(message.member.roles.cache.has(supportID2)) {
         dataChecker.checkVital(message)
         } else {
@@ -105,6 +129,7 @@ client.on('messageCreate', message => { //Check Vital Balance
 
 client.on('messageCreate', message => {   //Top-up Elite
     if(message.content === prefix + 'topelite') {
+        message.delete({delay: 1000})
         if(message.member.roles.cache.has(supportID2)) {
         buyElite.topup(message)
             }       else {
@@ -114,7 +139,19 @@ client.on('messageCreate', message => {   //Top-up Elite
 });
 
 client.on('messageCreate', message => {   //Top-up Elite
+    if(message.content === prefix + 'expelite') {
+        message.delete({delay: 1000})
+        if(message.member.roles.cache.has(supportID2)) {
+        buyElite.exptopelite(message)
+            }       else {
+                    misc.notAuthorized(message);
+        }
+    }
+});
+
+client.on('messageCreate', message => {   //Top-up Elite
     if(message.content === prefix + 'topelite2') {
+        message.delete({delay: 1000})
         if(message.member.roles.cache.has(supportID2)) {
         buyElite.topup2(message)
             }       else {
@@ -126,6 +163,7 @@ client.on('messageCreate', message => {   //Top-up Elite
 client.on('messageCreate', message => {   //Buy Elite
     const args = message.content.split(' ')
     if(args[0] === prefix + 'buyelite') {
+        message.delete({delay: 1000})
         if(message.member.roles.cache.has(supportID2)) {
         buyElite.purchase(message, args)
             }       else {
@@ -137,6 +175,7 @@ client.on('messageCreate', message => {   //Buy Elite
 client.on('messageCreate', message => {   //Top-up Vital
     const args = message.content.split(' ')
     if(message.content === prefix + 'topvital') {
+        message.delete({delay: 1000})
         if(message.member.roles.cache.has(supportID2)) {
         buyVital.topup(message);
             } else {
@@ -148,6 +187,7 @@ client.on('messageCreate', message => {   //Top-up Vital
 client.on('messageCreate', message => {   //Buy Vital
     const args = message.content.split(' ')
     if(args[0] === prefix + 'buyvital') {
+        message.delete({delay: 1000})
         if(message.member.roles.cache.has(supportID2)) {
         buyVital.purchase(message, args);
             } else {
@@ -159,6 +199,7 @@ client.on('messageCreate', message => {   //Buy Vital
 client.on('messageCreate', message => { //Buy Toxic
     const args = message.content.split(' ')
     if(args[0] === prefix + 'buytoxic') {
+        message.delete({delay: 1000})
         if(message.member.roles.cache.has(supportID2)) {
         buyToxic.purchase(message, args) 
         } else {

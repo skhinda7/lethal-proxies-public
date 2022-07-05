@@ -9,7 +9,6 @@ module.exports = {
 }
 
 function notAuthorized(message) {
-    message.delete({ timeout : 1000 })
     const embed = new Discord.MessageEmbed()
         .setTitle('**Not Authorized** :rage:')
         .setColor(0xFF0000)

@@ -36,7 +36,8 @@ const {
 module.exports = {
     purchase,
     topup,
-    topup2
+    topup2,
+    exptopelite
 }
 
 async function topup(message) {
@@ -119,10 +120,14 @@ async function topup(message) {
         await page.setViewport({ width: 1400, height: 1000 });
         try {    
         await page.goto(dashboard);
+        await page.waitForTimeout(2000)
         await page
             .waitForSelector('form > div.input-group.mb-3 > input')
-            .then(() => page.type('form > div.input-group.mb-3 > input', email))
-            .then(() => page.type('form > div.input-group.mb-4 > input', password))
+            .then(() => page.type('form > div.input-group.mb-3 > input', email, {delay : 100}))
+        await page.waitForTimeout(1000)
+        await page
+            .waitForSelector('form > div.input-group.mb-4 > input')
+            .then(() => page.type('form > div.input-group.mb-4 > input', password, {delay : 100}))
             .then(() => page.click('form > div.row > div.col-4 > button'))
         await orderInitEmbed1.edit({embeds:[loggedIn]});
         await console.log('Logged In')
@@ -465,9 +470,13 @@ async function topup2(message) {
             try {    
             await page.goto(dashboard);
             await page
-                .waitForSelector('form > div.input-group.mb-3 > input')
-                .then(() => page.type('form > div.input-group.mb-3 > input', email))
-                .then(() => page.type('form > div.input-group.mb-4 > input', password))
+                .waitForSelector(`form > div.input-group.mb-3 > input`)
+                .then(() => page.waitForTimeout(7000))
+                .then(() => page.type('form > div.input-group.mb-3 > input', email, {delay : 100}))
+            await page.waitForTimeout(1000)
+            await page
+                .waitForSelector('form > div.input-group.mb-4 > input')
+                .then(() => page.type('form > div.input-group.mb-4 > input', password, {delay : 100}))
                 .then(() => page.click('form > div.row > div.col-4 > button'))
             await orderInitEmbed1.edit({embeds:[loggedIn]});
             await console.log('Logged In')
@@ -511,16 +520,16 @@ async function topup2(message) {
         await page.waitForTimeout(300)
         await page
             .click('#card-exp')
-            .then(() => page.type('#card-exp', expiry2, {delay : 100}))
-        await page.waitForTimeout(300)    
+            .then(() => page.type('#card-exp', expiry2, {delay : 200}))
+        await page.waitForTimeout(1000)    
         await page
             .click('#card-cvc')
-            .then(() => page.type('#card-cvc', cvv2, {delay : 100}))
+            .then(() => page.type('#card-cvc', '778', {delay : 500}))
         await page.waitForTimeout(300)
         await page
             .waitForSelector('#stripe-first-name')
-            .then(() => page.type('#stripe-first-name', firstName, {delay : 10}))
-            .then(() => page.type('#stripe-last-name', lastName, {delay : 10}))  
+            .then(() => page.type('#stripe-first-name', firstName, {delay : 30}))
+            .then(() => page.type('#stripe-last-name', lastName, {delay : 30}))  
         await page.waitForTimeout(300)
             await page
                 .waitForSelector('#payButton')
@@ -551,13 +560,17 @@ async function topup2(message) {
         puppeteer.launch({headless: false}, { args: ['--no-sandbox'] }).then(async browser => {
             let orderInitEmbed1 = await message.channel.send({embeds: [orderInit]})
             const page = await browser.newPage();
-            await page.setViewport({ width: 1400, height: 1000 });
+            await page.setViewport({ width: 1366, height: 768 });
             try {    
             await page.goto(dashboard);
             await page
-                .waitForSelector('form > div.input-group.mb-3 > input')
-                .then(() => page.type('form > div.input-group.mb-3 > input', email))
-                .then(() => page.type('form > div.input-group.mb-4 > input', password))
+                .waitForSelector(`form > div.input-group.mb-3 > input`)
+                .then(() => page.waitForTimeout(7000))
+                .then(() => page.type('form > div.input-group.mb-3 > input', email, {delay : 100}))
+            await page.waitForTimeout(500)
+            await page
+                .waitForSelector('form > div.input-group.mb-4 > input')
+                .then(() => page.type('form > div.input-group.mb-4 > input', password, {delay : 70}))
                 .then(() => page.click('form > div.row > div.col-4 > button'))
             await orderInitEmbed1.edit({embeds:[loggedIn]});
             await console.log('Logged In')
@@ -592,19 +605,21 @@ async function topup2(message) {
             await page
                 .waitForSelector('#card-number')
                 .then(() => page.type('#card-number', card2, {delay : 100}))
-            await page.waitForTimeout(300)
+            await page.waitForTimeout(500)
             await page
                 .click('#card-exp')
-                .then(() => page.type('#card-exp', expiry2, {delay : 100}))
-            await page.waitForTimeout(300)    
-            await page
-                .click('#card-cvc')
-                .then(() => page.type('#card-cvc', cvv2, {delay : 100}))
+                .then(() => page.type('#card-exp', expiry2, {delay : 300}))
+                await page.waitForTimeout(1000)    
+                await page
+                    .click('#card-cvc')
+                    .then(() => page.type('#card-cvc', '7', {delay : 500}))
+                    .then(() => page.type('#card-cvc', '7', {delay : 500}))
+                    .then(() => page.type('#card-cvc', '8', {delay : 500}))
             await page.waitForTimeout(300)
             await page
                 .waitForSelector('#stripe-first-name')
-                .then(() => page.type('#stripe-first-name', firstName, {delay : 10}))
-                .then(() => page.type('#stripe-last-name', lastName, {delay : 10}))  
+                .then(() => page.type('#stripe-first-name', firstName, {delay : 30}))
+                .then(() => page.type('#stripe-last-name', lastName, {delay : 30}))  
             await page.waitForTimeout(300)
             await page
                 .waitForSelector('#payButton')
@@ -633,4 +648,124 @@ async function topup2(message) {
         }) 
     }
         
+}
+
+async function exptopelite(message, args) {
+    var myHeaders = new fetch.Headers();
+    myHeaders.append("X-Access-Token", "Bearer " + dashboardAPI);
+
+    var requestOptions = {
+         method: 'GET',
+         headers: myHeaders,
+            redirect: 'follow'
+    };
+    const response = await fetch(eliteDataCheck, requestOptions)
+    const result = await response.text()
+    const result2 = await JSON.parse(result)
+    var currentBalance = ((result2.availableTraffic).toFixed(0))
+    var currentBalance2 = ((result2.availableTraffic).toFixed(2))
+    const result3 = (50 - (currentBalance))
+    var neededBalance = (JSON.stringify(result3))
+    const orderEmbed = message.embeds[0];
+    const orderInit = new Discord.MessageEmbed(orderEmbed)
+    
+        .setTitle(`New Elite Order`)
+        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const loggedIn = new Discord.MessageEmbed()
+        .setTitle(`New Elite Order`)
+        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()  
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const accessingElite = new Discord.MessageEmbed()
+        .setTitle(`New Elite Order`)
+        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!\nDepositing Money`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const addingCoupon = new Discord.MessageEmbed()
+        .setTitle(`New Elite Order`)
+        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!\nAccessing Elite Plan\nAdding Coupon Code`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const changingQuantity = new Discord.MessageEmbed()
+        .setTitle(`New Elite Order`)
+        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!\nAccessing Elite Plan\nAdding Coupon Code\nChanging Bandwidth Quantity`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const initiatingPayPal = new Discord.MessageEmbed()
+        .setTitle(`New Elite Order`)
+        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!\nAccessing Elite Plan\nAdding Coupon Code\nChanging Bandwidth Quantity\nInitiating PayPal Checkout`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const submittingBilling = new Discord.MessageEmbed()
+        .setTitle(`New Elite Order`)
+        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!\nAccessing Elite Plan\nAdding Coupon Code\nChanging Bandwidth Quantity\nInitiating PayPal Checkout\nSubmitting Billing`)
+        .setColor(0x8A2BE2)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+    const submittingOrder = new Discord.MessageEmbed()
+        .setTitle(`New Elite Order`)
+        .setDescription(`**Status:**\nInitiating  order of \`\`${neededBalance}\`\` GB\nLogged In!\nAccessing Elite Plan\nAdding Coupon Code\nChanging Bandwidth Quantity\nInitiating PayPal Checkout\nSubmitting Billing\n__Submitting Order__`)
+        .setColor(0xFFAE42)
+        .setTimestamp()
+        .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/b/b9/Youtube_loading_symbol_1_(wobbly).gif')
+        .setFooter(footer, logo)
+puppeteer.launch({headless: false}, { args: ['--no-sandbox'] }).then(async browser => {
+    let orderInitEmbed1 = await message.channel.send({embeds: [orderInit]})
+    const page = await browser.newPage();
+    await page.setViewport({ width: 1366, height: 768 });
+    await page.goto('https://dashboard.iproyal.com/deposit')
+    await page
+            .waitForSelector(`form > div.input-group.mb-3 > input`)
+            .then(() => page.waitForTimeout(7000))
+            .then(() => page.type('form > div.input-group.mb-3 > input', email, {delay : 100}))
+    await page.waitForTimeout(500)
+    await page
+            .waitForSelector('form > div.input-group.mb-4 > input')
+            .then(() => page.type('form > div.input-group.mb-4 > input', password, {delay : 70}))
+            .then(() => page.click('form > div.row > div.col-4 > button'))
+    await orderInitEmbed1.edit({embeds:[loggedIn]});
+    await page
+            .waitForSelector('#card')
+            .then(() => page.click('#card'))
+    await page.waitForTimeout(2000)
+    await page
+            .click('#card-number')
+            .then(() => page.type('#card-number', card2, {delay : 500}))
+    await page
+            .click('#card-exp')
+            .then(() => page.type('#card-exp', expiry2, {delay : 200}))
+    await page
+            .click('#card-cvc')
+            .then(() => page.type('#card-cvc', cvv2, {delay : 500}))
+    await page 
+            .click('#stripe-first-name')
+            .then(() => page.type('#stripe-first-name', firstName, {delay : 300}))
+    await page 
+            .click('#stripe-last-name')
+            .then(() => page.type('#stripe-last-name', lastName, {delay : 300}))
+    await page
+            .click('#amount')
+            .then(() => page.keyboard.press('Backspace'))
+            .then(() => page.keyboard.press('Backspace'))
+            .then(() => page.keyboard.press('Backspace'))
+            .then(() => page.type('#amount', `${(neededBalance * 2.5)}`, {delay : 300}))
+    await page.waitForTimeout(5000)
+    await browser.close()
+    message.channel.send('Working so far. Added the amount too.')
+    })   
 }
